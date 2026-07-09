@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase/client";
 import {useRef} from "react";
 import {useNavigate} from "react-router-dom";
 
@@ -7,10 +8,22 @@ const BoardCreatePage = ({onCreate}) => {
     const authorRef = useRef();
     const navigate = useNavigate();
 
-    const onCreateBtnClick = () => {
+    const onCreateBtnClick = async () => {
         const title = titleRef.current.value;
         const content = contentRef.current.value;
         const author = authorRef.current.value;
+
+        const {data: { user }} = await supabase.auth.getUser();
+        const newBoard = {
+            title,
+            content,
+            userId : user.id,
+        };
+        
+        const res = await supabase.from("tb_Board").insert(newBoard);
+
+
+        console.log(res);
 
         onCreate({title, content, author});
 
