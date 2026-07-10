@@ -15,10 +15,10 @@ const BoardEditPage = ({boards, onUpdate}) => {
         const content = contentRef.current.value;
         const author = authorRef.current.value;
         
-        // await supabase.from("tb_Board").update({
-        //     title,
-        //     content,
-        // }).eq("id", board.id);
+        await supabase.from("tb_Board").update({
+            title,
+            content,
+        }).eq("id", board.id);
 
         onUpdate({id: board.id, title, content, author});
         navigate("/")
