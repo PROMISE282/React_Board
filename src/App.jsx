@@ -49,17 +49,17 @@ function App() {
         // },
     ]);
 
-    // async function getBoards() {
-    //         const { data, error } = await supabase.from("tb_Board").select();
-    //         if (error) {
-    //             console.error(error);
-    //             return;
-    //         }
-    //         setBoards(data)
-    // }
+    async function getBoards() {
+            const { data, error } = await supabase.from("tb_Board").select();
+            if (error) {
+                console.error(error);
+                return;
+            }
+            setBoards(data)
+    }
 
     useEffect(() => {
-        // getBoards();
+        getBoards();
     }, []);
 
     const handleDeleteBoard = (id) => {
